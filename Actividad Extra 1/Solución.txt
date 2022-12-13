@@ -1,0 +1,27 @@
+read -p "Fichero: " fichero
+
+if [[ ! -f $fichero ]]; then
+	echo "$fichero no es un fichero"
+	exit 1
+fi
+
+regexAMERICAN="^3[4-7][0-9]{13}$"
+regexVISA="^4[0-9]{15}$"
+regexMASTERCARD="^5[1-5][0-9]{14}$"
+
+while read linea; do
+
+	if [[ $linea =~ $regexVISA ]]; then
+		echo "$linea:VISA"
+		continue
+	fi
+	if [[ $linea =~ $regexMASTERCARD ]]; then
+		echo "$linea:MASTERCARD"
+		continue
+	fi
+	if [[ $linea =~ $regexAMERICAN ]]; then
+		echo "$linea:AMERICAN EXPRESS"
+		continue
+	fi
+	echo $linea
+done < "$fichero"

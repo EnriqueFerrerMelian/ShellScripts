@@ -1,0 +1,79 @@
+#!/bin/bash
+
+##
+# Autor : Enrique Ferrer Melián
+# 27/10/2022 | 
+##
+
+##
+# Descripción
+#
+#Indicará si falta pasarle el perámetro en caso de que no se haga.
+#El script te indicará si la ruta pasada como variable pertenece a un fichero o a un directorio.
+#También comprobara que permisos se tienen sobre los mismos.
+#
+## 
+
+
+#Deberá recibir por parámetro la ruta de un fichero. Si no se pasa parámetro,
+#se deberá mostrar un mensaje de error y salir
+
+if [[ -z $1 ]]; then
+	echo "ERROR - No se ha pasado ningún parámetro"
+	exit
+fi
+
+#Muestra el nombre del fichero.
+if [[ -f $1 ]]; then
+	#Muestra la ruta del fichero
+	rutaFichero=$1
+	echo "Fichero: $rutaFichero"
+	#Muestra el propietario del fichero.
+	propietario=$(ls -l $1 | cut -d" " -f3 | uniq)
+	echo "Propietario: $propietario"
+	#Muestra el grupo del fichero.
+	grupo=$(ls -l $1 | cut -d" " -f4 | uniq)
+	echo "Grupo: $grupo"
+	#Muestra los permisos del propietario
+	permisosPropietario=$(ls -l $1 | cut -c2-4 | uniq)
+	echo "Permisos del propietario: $permisosPropietario"
+	#Muestra los permisos del grupo
+	permisosGrupo=$(ls -l $1 | cut -c5-7 | uniq)
+	echo "Permisos del grupo: $permisosGrupo"
+	#Muestra los permisos de otros usuarios
+	permisosOtros=$(ls -l $1 | cut -c8-10 | uniq)
+	echo "Permisos de otros usuarios: $permisosOtros"
+	#Muestra el tamaño del fichero
+	tamano=$(ls -lh $1 | cut -d" " -f5 | uniq)
+	echo "Tamaño: $tamano"
+else
+	#Si es un directorio muestra el propietario del directorio.
+	if [[ -d $1 ]]; then
+		#Muestra la ruta del directorio
+		rutaDirectorio=$1
+		echo "Fichero: $rutaDirectorio"
+		#Muestra el propietario del directorio.
+		propietario=$(ls -ldh $1 | cut -d" " -f3 | uniq)
+		echo "Propietario: $propietario"
+		#Muestra los permisos del propietario
+		grupo=$(ls -ldh $1 | cut -d" " -f4 | uniq)
+		echo "Grupo: $grupo"
+		#Muestra los permisos del propietario
+		permisosPropietario=$(ls -ldh $1 | cut -c2-4 | uniq)
+		echo "Permisos del propietario: $permisosPropietario"
+		#Muestra los permisos del grupo
+		permisosGrupo=$(ls -ldh $1 | cut -c5-7 | uniq)
+		echo "Permisos del grupo: $permisosGrupo"
+		#Muestra los permisos de otros usuarios
+		permisosOtros=$(ls -ldh $1 | cut -c8-10 | uniq)
+		echo "Permisos de otros usuarios: $permisosOtros"
+		#Muestra el tamaño del directorio
+		tamano=$(ls -lhdh $1 | cut -d" " -f5 | uniq)
+		echo "Tamaño: $tamano"
+	else
+		echo "Error- La ruta es errónea o el fichero no existe"
+		exit
+	fi
+fi
+
+

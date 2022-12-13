@@ -1,0 +1,49 @@
+#!/bin/bash
+
+read -p "Introduce nombre del archivo: " archivo
+rutaHtml="$HOME/html/$archivo"
+rutaCss="$HOME/CSS/$css"
+
+#comprueba si ha introducido un nombre para el archivo
+if [[ -z $archivo ]]; then
+	echo "Error - No has introducido ningún nombre para el archivo"
+	exit
+fi
+#comprueba si el directorio html ya esiste, si no, crea uno
+if [[ ! -e "$HOME/html" ]]; then
+	mkdir $HOME/html
+fi
+
+
+read -p "Quieres crear un CCS para la página?: " css
+case $css in
+	( No | no | nO | NO ) echo "No se ha generado CSS";;
+	( Si | sI | SI | si ) if [[ ! -e "$HOME/CSS/" ]]; then
+					mkdir $HOME/CSS
+					touch $HOME/CSS/Style.css
+				else
+					touch $HOME/CSS/Style.css
+				fi;;
+esac
+
+
+
+#código html
+echo '<!DOCTYPE html>' >> $rutaHtml
+echo "<html>" >> $rutaHtml
+echo "	<head>" >> $rutaHtml
+echo "		<meta charset='UTF-8'>" >> $rutaHtml
+echo "		<meta name='viewport' content='width=device-width, initial-scale=1'>" >> $rutaHtml
+
+#si el usuario no quiere un css, se crea la etiqueta <style> dentro del archivo
+case $css in
+	( No | no | nO | NO ) echo "		<style type='text/css'" >> $rutaHtml
+				echo "		</style>" >> $rutaHtml;;
+esac
+echo "		<title>$archivo</title>" >> $rutaHtml
+echo "	<head>" >> $rutaHtml
+echo "	</head>" >> $rutaHtml
+echo "	<body id='body'>" >> $rutaHtml
+echo "		<h1>Esto es una página generada con código bash</h1>" >> $rutaHtml
+echo "	</body>" >> $rutaHtml
+echo "</html>" >> $rutaHtml

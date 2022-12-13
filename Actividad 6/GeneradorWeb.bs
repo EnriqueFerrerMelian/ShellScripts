@@ -1,0 +1,78 @@
+#!/bin/bash
+read -p "Introduce el nombre del archivo html: " nombre
+if [[ -z $nombre ]]; then
+	echo "ERROR 01 - no se ha introducido ningún nombre".
+	exit
+fi
+read -p "Introduce la ruta de la carpeta de la web: " ruta
+if [[ -z $ruta ]]; then
+	echo "ERROR 02 - no se ha introducido ninguna ruta"
+	exit
+fi
+read -p "Introduce el título del archivo html: " titulo
+if [[ -z $titulo ]]; then
+	echo "ERROR 03- no se ha introducido ningún título"
+	exit
+fi
+read -p "Introduce el contenido del archivo html: " contenido
+if [[ -z $contenido ]]; then
+	echo "ERROR 04- no se ha introducido ningún contenido"
+	exit
+fi
+
+read -p "Introduce un número: " num
+if [[ -z $num ]]; then
+	echo "ERROR 05- no se ha introducido ningún número"
+	exit
+fi
+
+read -p "¿Quieres que tenga el modo claro o oscuro?: " eleccion
+if [[ -z $eleccion ]]; then
+	echo "ERROR 06- no se ha elegido ningún modo"
+	exit
+fi
+
+mkdir -p $ruta/{html,CSS}
+
+css=$ruta/CSS/style.css
+html=$ruta/html/index.html
+
+modo="claro"
+if [[ $eleccion = "oscuro" ]]; then
+	modo="oscuro"
+fi
+
+#touch "$nombre.html"
+#ruta="$nombre.html"
+
+#CSS
+echo ".claro{
+		color: black;
+		background: white;
+	}
+	.oscuro{
+		color: white;
+		background: black;
+	}" >> $css
+	   
+#HTML	   
+echo '<!Doctype html>' >> $html
+echo "<html>" >> $html
+echo "	<head>" >> $html
+echo "	  <link rel='stylesheet' href='../CSS/style.css'>" >> $html
+echo "	  <title>$titulo</title>" >> $html
+echo "	</head>" >> $html
+echo "	<body class='$eleccion'>" >> $html
+echo "	  <h1>$titulo</h1>" >> $html
+echo "	  <p>$contenido</p>" >> $html
+echo "<table border=1>" >> $html
+for (( i=1; i<=10; i++)); do
+	echo "	<tr>" >> $html
+	echo "		<td> $num * $i = <td>" >> $html
+	echo "		<td> $(($num*$i)) </td>" >> $html
+	echo "	</tr>" >> $html
+done
+echo "</table>" >> $html
+echo "	</body>" >> $html
+
+echo "</html>" >> $html

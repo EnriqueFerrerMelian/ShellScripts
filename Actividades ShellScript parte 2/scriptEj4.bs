@@ -1,0 +1,57 @@
+#!/bin/bash
+
+##
+# Autor : Enrique Ferrer Melián
+# 27/10/2022 | 
+##
+
+##
+# Descripción
+#
+#Las instrucciones o comandos se ejecutarán una detrás de otra desde la primera hasta la última realizando una función compuesta por la función de cada uno #de los comandos ejecutados.
+#Primero creará 3 carpetas en el directorio personal.
+#Creará una serie de carpetas dentro de cada una de las carpetas mencionadas anteriormente.
+#Después mostrarálos SOLO los permisos de estas carpetas.
+#Por último mostrará el contenido de los directorios sin información extra de los mismos.
+#
+## 
+
+#He creado una función para cada requisito
+creaCarpetas(){
+	mkdir -p /home/$USER/{público,privado,compartido}
+}
+
+carpetasPublico(){
+	mkdir -p /home/$USER/público/{documentos,música,vídeos,imágenes}
+}
+
+carpetasPrivado(){
+	mkdir -p /home/$USER/privado/{documentos,música,videos,imágenes,mensajes,logs}
+}
+
+carpetasCompartido(){
+	mkdir -p /home/$USER/privado/{grupo,empresa,departamento}
+}
+
+mostrarPermisos(){
+	ls -ld público/ privado/ compartido/
+}
+
+mostrarContenido(){
+	ls -R público/ privado/ compartido/
+}
+
+
+#Después una función que contiene todas las funciones anteriores, que será laque se ejecute al usar el archivo.
+funciones()
+{
+	creaCarpetas
+	carpetasPublico
+	carpetasPrivado
+	carpetasCompartido
+	mostrarPermisos
+	mostrarContenido
+}
+
+
+funciones

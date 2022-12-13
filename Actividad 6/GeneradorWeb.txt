@@ -1,0 +1,35 @@
+#!/bin/bash
+read -p "Introduce el nombre del archivo html: " nombre
+read -p "Introduce el título del archivo html: " titulo
+read -p "Introduce el contenido del archivo html: " contenido
+read -p "¿Quieres que tenga el modo claro o oscuro?: " eleccion
+
+modo="claro"
+if [[ $eleccion = "oscuro" ]]; then
+	modo="oscuro"
+fi
+
+touch "$nombre.html"
+ruta="$nombre.html"
+echo '<!Doctype html>' >> $ruta
+echo "<html>" >> $ruta
+echo "	<head>" >> $ruta
+echo "	  <title>$titulo</title>" >> $ruta
+
+echo "	  <style>
+	     .claro{
+		color: black;
+		background: white;
+	     }
+	     .oscuro{
+		color: white;
+		background: black;
+	     }
+	   </style>" >> $ruta
+	   
+echo "	</head>" >> $ruta
+echo "	<body class='$modo'>" >> $ruta
+echo "	  <p>$contenido</p>" >> $ruta
+echo "	</body>" >> $ruta
+
+echo "</html>" >> $ruta

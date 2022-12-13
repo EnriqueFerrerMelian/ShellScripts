@@ -1,0 +1,81 @@
+#!/bin/bash
+
+##
+# Autor : Enrique Ferrer Melián
+# 27/10/2022 | 
+##
+
+##
+# Descripción
+#
+#Indicará si falta pasarle el perámetro en caso de que no se haga.
+#El script te indicará si la ruta pasada como variable pertenece a un fichero o a un directorio.
+#También comprobara que permisos se tienen sobre los mismos.
+#
+## 
+
+#Deberá recibir por parámetro la ruta de un fichero. Si no se pasa parámetro,
+#se deberá mostrar un mensaje de error y salir
+if [[ -z $1 ]]; then
+	echo "ERROR - No se ha pasado ningún parámetro"
+	exit
+fi
+
+#Mostrar información de permisos concretos del fichero:
+#  Si el fichero no existe, mostrar un mensaje indicando que el fichero no existe.
+if [[ -f $1 ]]; then
+	echo "El perámetro corresponde con un fichero"
+else
+	#Si es un directorio mostrar un mensaje indicando que es un directorio.
+	if [[ -d $1 ]]; then
+		echo "El parámetro corresponde con un directorio"
+		#Si es un directorio y tenemos permiso de acceso sobre el fichero, mostrar un mensaje
+		#indicando que tenemos permisos de acceso sobre el fichero.
+		variable=$(ls -l $1 | cut -d" " -f4 | uniq)
+		if [  $variable == "enrique" ];then
+			echo "Tienes permiso de acceso sobre el fichero"
+		fi
+	else
+		echo "Error- La ruta es errónea o el fichero no existe"
+		exit
+	fi
+	
+fi
+
+#Si es un enlace simbólico mostrar un mensaje indicando que es un enlace simbólico.
+if [[ -L $1 ]]; then
+	echo "El parámetro correspondo con un enlace simbólico"
+fi
+
+#Si somos el propietario del fichero mostraremos un mensaje indicando que somos el
+#propietario del fichero.
+if [[ -O $1 ]]; then
+	echo "Eres propietario del fichero"
+fi
+
+#Si pertenecemos al grupo del fichero, mostrar un mensaje indicando que
+#pertenecemos al grupo del fichero.
+if [[ -G $1 ]]; then
+	echo "Perteneces al grupo del fichero"
+fi
+
+#Si tenemos permiso de lectura sobre el fichero, mostrar un mensaje indicando que
+#tenemos permisos de lectura sobre el fichero.
+if [[ -r $1 ]]; then
+	echo "Tienes permiso de lectura"
+fi
+
+#Si tenemos permiso de escritura sobre el fichero, mostrar un mensaje indicando que
+#tenemos permisos de escritura sobre el fichero.
+if [[ -w $1 ]]; then
+	echo "Tienes permiso de escritura"
+fi
+
+#i es un fichero y tenemos permiso de ejecución sobre el fichero, mostrar un mensaje
+#indicando que tenemos permisos de ejecución sobre el fichero.
+if [[ -w $1 ]] && [[ -f $1 ]]; then
+	echo "Tienes permiso de ejecución"
+fi
+
+
+

@@ -1,0 +1,111 @@
+
+
+
+
+
+
+
+
+
+
+Sistemas Informáticos
+Enrique Ferrer Melián 1-DAM
+
+
+
+
+
+
+
+
+
+
+
+Sumario
+1.	3
+2.	4
+3.	5
+4.	6
+5.	7
+
+
+
+1.
+Mostrar el nombre y apellidos de todos los participantes sin repetirse, debe haber espacios en blanco entre los datos (ej: Carla Martínez). 
+
+Cut -d “:” -f4-5 archivo.txt | tr ":" " " | uniq
+
+Ir a:
+2, 3, 4, 5
+
+
+
+
+
+
+
+
+
+
+
+
+2.
+Mostrar el nombre de todos los deportes sin repetirse, debe haber espacios en blanco entre los datos (ej: Equipo de fútbol sala). 
+
+cut -d ":" -f6 archivo.txt | tr "-" " " | sort -u
+
+Ir a:
+1, 3, 4, 5
+
+
+
+
+
+
+
+
+
+
+
+3.
+Mostrar los eventos que ocurrieron en 2010 sin repetirse (Equipo de básquet sólo debe salir una vez). 
+
+grep -i 2010 archivo.txt |cut -d ":" -f6 | tr "-" " " | sort -k6 | uniq
+
+Ir a:
+1, 2, 4, 5
+
+
+
+
+
+
+
+
+
+
+
+
+4.
+Mostrar los meses en los que ocurrieron eventos de “Clases-de-danza”, ordenados por el nombre del alumno alfabéticamente sin repetirse.
+ 
+grep "Clase-de-danza" archivo.txt |sort -t: -k4 | cut -d ":" -f2
+
+Ir a:
+1, 2, 3, 5
+
+
+
+
+
+
+
+
+
+5.
+Mostrar los años y apellido de los participantes de “Equipo-de-básquet”, ordenados por su edad, de menor a mayor sin repetirse. 
+
+grep "Equipo-de-básquet" archivo.txt | cut -d”:” -f3,5 | sort -t: -k3 -n | tr -s  “:” “ “
+
+Ir a:
+1, 2, 3, 4

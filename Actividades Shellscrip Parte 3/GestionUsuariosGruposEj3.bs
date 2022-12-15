@@ -1,0 +1,28 @@
+#!/bin/bash
+
+##
+#
+# 14/11/2022
+#
+# Enrique Ferrer Melián
+#
+# Ejercicio sobre gestión de usuarios y grupos
+#
+##
+
+# 3. Crea un script que deba ejecutarse con un parámetro de entrada (un nombre de usuario)
+#y deberá comprobar si existe en el sistema, comprobad todos los posibles errores a la hora
+#de ejecución (se introduce el parámetro principalmente) y mostrar las distintas salidas en
+#función de la entrada (existe o no existe).
+
+if [[ -z $1 ]]; then
+	echo "ERROR - no se ha introducido ningún parámetro"
+	exit
+fi
+
+usuario=`grep ^$1: /etc/passwd`
+if [[ -z $usuario ]]; then
+	echo "El usuario $1 no existe"
+else
+	echo "El usuario existe"
+fi

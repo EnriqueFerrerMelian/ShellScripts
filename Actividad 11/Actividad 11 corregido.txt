@@ -1,0 +1,27 @@
+Ejercicio 1
+if [[ -f $fichero ]]; then
+	echo "No es un fichero correcto"
+fi
+
+while read variable; do
+	longitud= ${#variable
+	echo "Tamaño: $longitud"
+	primeraPalabra=$(echo $linea | cut -d" " -f1)
+	primeraMayuscula=${primeraPalabra^^}
+	echo ${linea/$primeraPalabra/$primeraMayuscula}
+done < $fichero
+
+
+Ejercicio2
+vector=()
+while read variable; do
+	longitud= ${#variable
+	echo "Tamaño: $longitud"
+	primeraPalabra=$(echo $linea | cut -d" " -f1)
+	primeraMayuscula=${primeraPalabra^^}
+	vector+=(14primeraMayuscula)
+done < $fichero
+
+for((int i =0;i<${#vector[@]};i++)); do
+	echo "linea $i: ${vector[$i]"
+done

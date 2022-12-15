@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#La contraseña se recomienda ponerla siempre de forma interactiva para darle mayor seguridad, con "passwd usuario" después de haberlo creado. Pero podemos ponérsela usando chpasswd.
+
+read -p "Introduce el nombre del nuevo usuario: " usuario
+read -s -p "Introduce su contraseña: " passwordText
+
+echo "----------------"
+
+password=$(echo $passwordText | md5sum)
+
+sudo useradd -m -s /bin/bash $usuario
+
+echo "$usuario:$password" | sudo chpasswd

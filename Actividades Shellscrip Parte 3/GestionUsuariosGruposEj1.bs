@@ -1,0 +1,58 @@
+#!/bin/bash
+
+##
+#
+# 14/11/2022
+#
+# Enrique Ferrer Melián
+#
+# Ejercicio sobre gestión de usuarios y grupos
+#
+##
+
+# 1. En un sistema se desea contar con las siguientes cuentas de usuario
+
+#Crea cuentas de usuario y grupos correspondientes
+sudo groupadd Desarrollo
+sudo groupadd Redes
+sudo groupadd Marketing
+sudo groupadd Administración
+
+sudo useradd -m -G Desarrollo,Redes -s /bin/bash Daniel
+sudo useradd -m -G Desarrollo -s /bin/bash José
+sudo useradd -m -G Desarrollo,Administración -s /bin/bash María
+sudo useradd -m -G Marketing,Administración -s /bin/bash Raquel
+
+#Muestra en pantalla las últimas 10 líneas del fichero de configuración de cuentas del sistema
+echo "10 últimas líneas"
+tail /etc/passwd
+echo " "
+
+#Muestra en pantalla las primeras 5 líneas del fichero de configuración de cuentas del sistema
+echo "5 primeras líneas"
+head -n5 /etc/passwd
+echo " "
+
+#Muestra en pantalla las primeras 5 líneas del fichero de grupos del sistema
+echo "5 primeras líneas del archivo del grupo"
+head -n5 /etc/group
+echo " "
+
+
+#Almacena en un fichero llamado usuarios.txt en tu directorio personal un alista con la información de
+#los últimos 3 usuarios creados en el sistema.
+while read line; do
+	echo $line >> usuarios.txt
+done < <(cat /etc/passwd | tail -n3)
+
+#mas sencillo
+#cat /etc/passwd | tail -n3 > $HOME/usuarios.txt
+
+#Almacena en un fichero llamado grupos.txt en tu directorio personal un alista con la información de
+#los últimos 3 grupos creados en el sistema.
+while read line; do
+	echo $line >> grupos.txt
+done < <(cat /etc/group | tail -n3)
+
+#mas sencillo
+#cat /etc/group | tail -n3 > $HOME/grupos.txt

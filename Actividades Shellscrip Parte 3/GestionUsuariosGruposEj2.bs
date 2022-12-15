@@ -1,0 +1,48 @@
+#!/bin/bash
+
+##
+#
+# 14/11/2022
+#
+# Enrique Ferrer Melián
+#
+# Ejercicio sobre gestión de usuarios y grupos
+#
+##
+
+# 2. Crea un script que pida un usuario por pantalla.
+read -p "Introduce un nombre de usuario: " usuario
+echo " "
+
+##!!! primero comprobar si existe
+existe=`cat /etc/passwd | grep ^$usuario:`
+
+if [[ -z $existe ]]; then
+echo "El usuario no existe"
+exit
+fi
+
+#Mostrará de forma separada:
+#Su dirección personal
+dp=$(grep -i $usuario /etc/passwd | cut -d":" -f6)
+echo "Su direción personal es: $dp"
+echo " "
+#su identificador de grupo
+gid=$(grep -i $usuario /etc/passwd | cut -d":" -f4)
+echo "Su identificador de grupo es: $gid"
+echo " "
+#Los grupos a los que pertenece
+echo "El usuario $usuario pertenece a los grupos:"
+grupos=`groups $usuario`
+echo $grupos | cut -d":" -f2
+echo " "
+#además comprobará si en su directorio personal está la carpeta Backup.
+#En caso de no estarlo la creará automáticamente.
+if [[ ! -d /$dp/Backup ]]; then
+	mkdir /$dp/Backup
+	echo "La carpeta Backup ha sido creada"
+else
+	echo "La carpeta Backup ya existe"
+fi
+echo " "
+

@@ -1,0 +1,168 @@
+
+GESTIÓN DE FICHEROS Y DIRECTORIOS
+
+
+1. Realiza en la terminal las siguientes acciones:
+
+
+-Cambia el directorio actual a tu directorio personal.
+cd
+ 
+-Muestra la ruta del directorio actual.
+pwd
+ 
+-Muestra el contenido del directorio actual.
+ls
+ 
+-Muestra el contenido del escritorio del usuario actual
+cd Escritorio
+ 
+-Muestra el contenido del directorio actual con información extendida o larga de ficheros
+ls -l
+ 
+-Muestra el contenido del directorio actual con información extendida o larga de ficheros, mostrando el tamaño con unidades comprensibles por humanos.
+ls -lh
+ 
+-Crea un directorio llamado extremadura en tu directorio personal
+mkdir Extremadura
+ 
+-Crea los directorios smr, asir, dam y daw dentro del directorio extremadura de golpe.
+mkdir Extremadura/{SMR,ASIR,DAM,DAW}
+ 
+-Muestra información extendida del directorio extremadura, no de su contenido
+ls -R
+ 
+-Crea un directorio llamado backup dentro de un directorio llamado 2022, dentro del directorio smr, que está dentro del directorio extremadura.
+mkdir -p Extremadura/SMR/2022/backup
+ 
+-Muestra el contenido del directorio extremadura y todos sus subdirectorios de forma recursiva con información extra de permisos, propietario y grupo.
+ls -Rl Extremadura
+ 
+-Borra los directorios asir, dam y daw que están dentro del directorio extremadura.
+rm -d Extremadura/{asir,dam,daw}
+ 
+-Borra el directorio smr que está dentro del directorio extremadura.
+rm -d Extremadura/smr
+ 
+-Vamos a crear de nuevo los directorios smr, asir, dam y daw a la vez, dentro del directorio extremadura. Utiliza rutas absolutas.
+mkdir -p /home/enrique/Extremadura/{ASIR,DAM,DAW,SMR}
+ 
+-Crea un fichero llamado saludo.txt cuyo contenido sea un saludo de bienvenida.
+echo "hola mundo" >> saludo.txt
+ 
+-Añade al final del fichero saludo.txt la fecha y hora actual mediante comandos(utiliza el comando date)
+date >> saludo.txt
+ 
+-Copia el fichero saludo.txt al directorio smr que está dentro del directorio extremadura.
+cp saludo.txt Extremadura/smr
+ 
+-Copia el fichero saludo.txt dentro del directorio extremadura/asir con el nombre administradores.txt
+cp saludo.txt Extremadura/asir/administradores.txt
+ 
+-Copia el fichero saludo.txt dentro del directorio extremadura/dam con el nombre desarrolladores.txt
+cp saludo.txt Extremadura/dam/desarrolladores.txt
+ 
+-Copia el directorio extremadura y todo su contenido al directorio backup.
+cp -r Extremadura/ ./Documentos/backup
+ 
+ 
+***************************************************************************************************
+
+2. Realiza en la terminal las siguientes acciones:
+
+-Dentro del directorio extremadura crea un directorio con el año actual
+mkdir Extremadura/2022
+ 
+-En ese directorio del año crea los directorios de cada una de tus asignaturas.
+mkdir -p Extremadura/2022/{PROG,SI,BBDD,LM,ED}
+ 
+-En cada una de ellas, crea tres directorios, teoría, docs y ejercicios.
+mkdir -p Extremadura/2022/{PROG/{teoría,docs,ejercicios},SI/{teoría,docs,ejercicios},LM/{teoría,docs,ejercicios},BBDD/{teoría,docs,ejercicios},ED/{teoría,docs,ejercicios}}
+
+-Muestra el contenido extendido y con formato comprensible del directorio extremadura/año con todos sus subdirectorios.
+ls -Rl Extremadura/2022
+ 
+-Borra el directorio docs de cada asignatura
+rm -d Extremadura/2022/{SI,PROG,LM,ED,BBDD}/docs
+ 
+-Crea un fichero que almacene el listado de ficheros de tu directorio actual, guardalo en el escritorio
+ls >> listado.txt
+mv listado.txt ./Escritorio
+
+-Muestra por pantalla la primera línea del fichero creado
+head -n1 listado.txt
+ 
+-Copia el fichero anterior al directorio extremadura con el nombre leeme.txt, y borra el del escritorio a continuación
+cp listado.txt /home/enrique/Extremadura/leeme.txt
+rm listado.txt
+
+
+***************************************************************************************************
+
+3. Gestión de comandos:
+ 
+-Crea en la carpeta de documentos, un fichero con el contenido de este enlace, llamado historiaBash.txt.
+Copio el contenido de la página web
+cat > ./documentos/historiaBash.txt
+pego el contenido con cont+shift+v
+control+c para salir del editor
+ 
+-Abre una terminal en el escritorio, y mediante una ruta absoluta, muestra el contenido del fichero historiaBash.
+cat /home/enrique/Documentos/historiaBash.txt
+ 
+-Añadele una línea de texto al fichero historiaBash con tu nombre y comprueba como antes, si se ha realizado correctamente.
+cat >> ./Documentos/historiaBash.txt
+Introduzco nombre
+control+c
+cat /home/enrique/Documentos/historiaBash.txt
+ 
+-Muestra las 3 primeras líneas y la última de historiaBash
+head -n3 Documentos/historiaBash.txt ; tail -n1 Documentos/historiaBash.txt
+ 
+-Realiza una búsqueda en tu directorio home, de todos los archivos shellscript que tienes en cualquier ubicación de tu usuario.
+find /home -type f -iname *.sh
+ 
+-Busca en el fichero historiaBash todas las líneas que tengan la palabra linux (hay 2)
+grep -in linux Documentos/historiaBash.txt
+
+
+***************************************************************************************************
+
+3.2. Gestión de comandos:
+
+- Muestra únicamente la primera palabra de las anteriores líneas encontradas
+grep -i Linux Documentos/historiaBash.txt | cut -d" " -f1
+
+- Ordena esas palabras por orden alfabético
+grep -i Linux Documentos/historiaBash.txt | cut -d" " -f1 | sort
+
+- Cambia en ese archivo, todas las ocurrencias de la letra “o” por la arroba @, y guárdalo como Modificado.txt
+cat Documentos/historiaBash.txt | tr "o" "@" > Documentos/Modificado.txt
+
+- Cuenta las líneas del fichero Modificado
+wc -l Documentos/Modificado
+
+
+***************************************************************************************************
+
+4. Creación de directorios
+
+Crea un script siguiendo las pautas dadas:
+• Intérprete que usará el script
+• Resumen básico de la utilidad del script
+• Información de autor y fecha
+
+Este script deberá realizar las siguientes tareas:
+
+1. Crear los siguientes directorios en tu directorio personal: público, privado y compartido.
+
+2. Dentro del directorio público deberá crear los siguientes directorios: documentos, música, vídeos e imágenes.
+
+3. Dentro del directorio privado deberá crear los siguientes directorios: documentos, música, videos, imágenes, mensajes y logs
+
+4. Dentro del directorio compartido deberá crear los siguientes directorios: grupo, empresa y departamento.
+
+5. Muestra en pantalla los permisos de cada uno de los directorios público, privado y compartido, no de su contenido.
+6. Muestra el contenido del directorio público, privado y compartido, en este orden, sin mostrar información extendida de permisos.
+Una vez creado el script, deberás configurarlo para que pueda ser ejecutado y ejecutarlo desde la terminal.
+Este script utiliza tan solo la secuencialidad como herramienta de programación. Es decir, las instrucciones o comandos se ejecutarán una detrás de otra desde la primera hasta la última realizando una función compuesta por la función de cada uno de los comandos ejecutados.

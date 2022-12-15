@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#5. Crea un script que muestre la ruta del directorio personal del usuario que se introduce como parámetro
+
+usuario=$1
+existe=`grep ^$usuario: /etc/passwd`
+
+gestionDeErrores(){
+	case $error in
+		1)
+			echo "Error 01 - No se ha introducido ningún parámetro"
+			exit ;;
+		2)
+			echo "Error 02 - El usuario no existe";;
+			exit ;;
+		3)
+			echo "Error 03 - Eso es un directorio -.-";;
+			exit ;;
+		4)
+			echo "Error 04 - Eso es un archivo...";;
+			exit ;;
+	esac
+	
+	
+}
+
+if [[ -f $usuario ]]; then
+	error=4
+	gestionDeErrores
+fi
+
+if [[ -d $usuario ]]; then
+	error=3
+	gestionDeErrores
+fi
+
+if [[ -z $usuario ]]; then
+	error=1
+	gestionDeErrores
+fi
+	
+if [[ -z $existe ]]; then
+	error=2
+	gestionDeErrores $error
+fi
+
+
+#Mostrando dirección personal
+dp=$(grep ^$usuario: /etc/passwd | cut -d":" -f6)
+echo "Dirección personal: $dp"
+echo " "
+
+
+
+

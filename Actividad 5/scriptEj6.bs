@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+	echo "ERROR - No has introducido parámetro de entrada :("
+	exit
+else
+	if [[ -f $1 ]]; then
+		if [[ $1 == "/etc/passwd" ]]; then
+			while read linea; do
+				usuario=$(echo $linea | cut -d":" -f1)
+				uid=$(echo $linea | cut -d":" -f3)
+				echo "El usuario $usuario tiene el UID: $uid"
+			done < $1
+		fi
+	else
+		echo "ERROR - el parámetro no corresponde a un fichero :("
+		exit
+	fi
+fi

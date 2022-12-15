@@ -1,0 +1,43 @@
+#!/bin/bash
+
+##
+#
+# 14/11/2022
+#
+# Enrique Ferrer Melián
+#
+# Ejercicio sobre gestión de usuarios y grupos
+#
+##
+
+# 4. Crea un script que pida al usuario un nombre de usuario y un grupo, se deberá
+#comprobar si existe el usuario y si existe ese grupo, comprobad todos los posibles errores a
+#la hora de ejecución y mostrar las distintas salidas en función de la entrada.
+#Ejemplos:
+#María y Redes: “María no pertenece al grupo de Redes”
+#María y Desarrollo: “María pertenece al grupo de Desarrollo”
+#Pepe y Redes: “No existe el usuario Pepe”
+#María y Cazadores: “No existe el grupo Cazadores”
+
+read -p "Introduce el nombre de usuario" usuario
+if [[ -z $usuario ]]; then
+	echo "EROR - No has introducido ningún nombre"
+	exit
+fi
+read -p "Introduce el grupo" grupo
+if [[ -z $grupo ]]; then
+	echo "EROR - No has introducido ningún grupo"
+	exit
+fi
+
+user=`grep ^$usuario: /etc/passwd`
+group=`grep ^$grupo: /etc/group`
+if [[ -z $user ]] || [[ -z $group ]]; then
+	echo "$usuario y $grupo : El usuario $usuario no existe"
+	exit
+else
+	if [[ -z $group ]]; then
+		echo "$usuario y $grupo : El grupo $grupo no existe"
+	fi
+fi
+
